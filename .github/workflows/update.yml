@@ -27,7 +27,7 @@ jobs:
           poetry run python ./src/main.py
       - run: |
           git rm -rf --ignore-unmatch .
-          git add -f public/ README.md .github/
+          git add -f public/ .github/
       - run: |
           git commit -m "$(TZ="Asia/Taipei" date '+%Y/%m/%d %H:%M:%S')"
           git push origin new:public -f
