@@ -3,21 +3,26 @@ from pathlib import Path
 from worker import Worker
 
 
-PUBLIC_DIR = Path(__file__).resolve().parent.parent/'public'
+REPO_PATH = Path(__file__).resolve().parent.parent
 
 
 if __name__ == '__main__':
-    boards = (
-        'gossiping',
-        'movie',
-        'stupidclown',
-        'stock',
-    )
-    for board in boards:
-        Worker('ptt', PUBLIC_DIR, board, 200)
-
-    keywords = (
-        '後端 python',
-    )
-    for keyword in keywords:
-        Worker('104', PUBLIC_DIR, keyword, 10)
+    works = {
+        'ptt': (
+            ('gossiping', 200),
+            ('movie', 200),
+            ('stupidclown', 200),
+            ('stock', 200),
+        ),
+        '104': (
+            ('後端 python', 10),
+        ),
+    }
+    public_dir = 'public'
+    public_path = REPO_PATH/public_dir
+    for name, kw_page in works.items():
+        for keyword, page in kw_page:
+            Worker(name, public_path, keyword, page)
+            with open(public_path/'README.md', 'a') as f:
+                path = f'{name}/{keyword}'
+                f.write(f'''[{path}](./{public_dir}/{path}.md)''' + 2*'\n')
