@@ -24,7 +24,7 @@ jobs:
           git restore -s master .
           pip install poetry && poetry install
       - run: |
-          poetry run python ./src/main.py
+          poetry run python ./src/main.py --production
       - run: |
           git rm -rf --ignore-unmatch .
           git add -f public/ .github/
