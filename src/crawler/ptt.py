@@ -1,8 +1,8 @@
-from crawlers.crawler import Crawler
+from crawler.crawler import Crawler
 from requests import request, Response
 
 
-class PTTCrawler(Crawler):
+class PTT(Crawler):
     def __init__(self, board, page):
         super().__init__('https://www.ptt.cc', f'bbs/{board}/index.html', page)
         self.current_url = f'{self.host}/{self.init_path}'
@@ -25,6 +25,6 @@ class PTTCrawler(Crawler):
             entries.append({
                 'title': title.text,
                 'link': self.host + title['href'],
-                'push': element.select_one('.nrec').text,
+                'push': element.select_one('.nrec').text or ' ',
             })
         return reversed(entries), next_path

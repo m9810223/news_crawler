@@ -1,8 +1,8 @@
-from crawlers.crawler import Crawler
+from .crawler import Crawler
 from requests import request, Response
 
 
-class Job104Crawler(Crawler):
+class Job104(Crawler):
     def __init__(self, keyword, page):
         super().__init__('https://www.104.com.tw', f'104/{keyword}', page)
         self.keyword = keyword
