@@ -6,6 +6,8 @@ authors = [" "]
 
 [tool.poetry.dependencies]
 python = ">3.9,<4"
+bs4 = "^0.0.1"
+requests = "^2.27.1"
 
 [tool.poetry.dev-dependencies]
 
