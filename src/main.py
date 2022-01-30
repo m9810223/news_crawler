@@ -24,5 +24,6 @@ if __name__ == '__main__':
         for keyword, page in kw_page:
             Worker(name, public_path, keyword, page)
             with open(public_path/'README.md', 'a') as f:
-                path = f'{name}/{keyword}'
-                f.write(f'''[{path}](./{public_dir}/{path}.md)''' + 2*'\n')
+                text = f'{name} - {keyword}'
+                link = f'./{name}/{keyword}.md'.replace(' ', '%20')
+                f.write(f'''[{text}]({link})''' + 2*'\n')
