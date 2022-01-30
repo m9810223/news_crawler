@@ -1,11 +1,25 @@
-from pprint import pprint
+from pathlib import Path
 
-from crawlers import PTTCrawler, Job104Crawler
+from worker import Worker
+
+
+PUBLIC_DIR = Path(__file__).resolve().parent.parent/'public'
 
 
 if __name__ == '__main__':
-    stock = PTTCrawler('stock', 2)
-    pprint(stock())
+    boards = (
+        'gossiping',
+        'movie',
+        'stupidclown',
+        'stock',
+    )
+    for board in boards:
+        Worker('ptt', PUBLIC_DIR, board, 200)
 
-    python = Job104Crawler('python', 2)
-    pprint(python())
+    keywords = (
+        '後端',
+        'python',
+        '後端 python',
+    )
+    for keyword in keywords:
+        Worker('104', PUBLIC_DIR, keyword, 200)
