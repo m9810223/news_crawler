@@ -17,9 +17,7 @@ if __name__ == '__main__':
         Worker('ptt', PUBLIC_DIR, board, 200)
 
     keywords = (
-        '後端',
-        'python',
         '後端 python',
     )
     for keyword in keywords:
-        Worker('104', PUBLIC_DIR, keyword, 200)
+        Worker('104', PUBLIC_DIR, keyword, 10)

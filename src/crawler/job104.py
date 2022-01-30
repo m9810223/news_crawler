@@ -14,6 +14,7 @@ class Job104(Crawler):
             url=f'{self.host}/jobs/search/',
             params=(
                 ('keyword', self.keyword),
+                ('isnew', '14'),
                 ('area', '6001001000'),
                 ('page', f'{self.current_page}'),
             ),
