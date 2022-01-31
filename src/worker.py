@@ -1,12 +1,13 @@
 from pathlib import Path
 
-from crawler import PTT, Job104
-from writer import PTTWriter, Job104Writer
+from crawler import PTT, Job104, Yourator
+from writer import PTTWriter, Job104Writer, YouratorWriter
 
 
 works = {
     'ptt': (PTT, PTTWriter),
     '104': (Job104, Job104Writer),
+    'yourator': (Yourator, YouratorWriter),
 }
 
 
@@ -20,5 +21,5 @@ class Worker:
         self.start()
 
     def start(self):
-        print(f'{self.work_name} -> {self.keyword}')
+        print(f'{self.work_name} - {self.keyword}')
         self.writer.write(self.crawler())

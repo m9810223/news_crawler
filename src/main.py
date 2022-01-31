@@ -10,6 +10,9 @@ REPO_PATH = Path(__file__).resolve().parent.parent
 if __name__ == '__main__':
     PRODUCTION = len(argv) > 1 and argv[1] in ('-p', '--production')
     works = {
+        'yourator': (
+            ('後端工程', 10),
+        ),
         'ptt': (
             ('gossiping', 200),
             ('movie', 200),
