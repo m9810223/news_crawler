@@ -1,5 +1,4 @@
 from .crawler import Crawler
-from requests import request, Response
 
 
 class Job104(Crawler):
@@ -9,8 +8,7 @@ class Job104(Crawler):
         self.current_page = 1
 
     def crawl(self):
-        response: Response = request(
-            'get',
+        response = self.request(
             url=f'{self.host}/jobs/search/',
             params=(
                 ('keyword', self.keyword),
@@ -46,8 +44,7 @@ class Job104(Crawler):
 
     def _job_detail(self, url):
         content_id = url.split('/')[-1].split('?')[0]
-        response = request(
-            'get',
+        response = self.request(
             url=f'https://www.104.com.tw/job/ajax/content/{content_id}',
             headers={'Referer': url},
         )

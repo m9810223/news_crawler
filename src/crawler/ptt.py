@@ -1,5 +1,4 @@
 from crawler.crawler import Crawler
-from requests import request, Response
 
 
 class PTT(Crawler):
@@ -8,7 +7,7 @@ class PTT(Crawler):
         self.current_url = f'{self.host}/{self.init_path}'
 
     def crawl(self):
-        response: Response = request('get', self.current_url, cookies={'over18': '1'})
+        response = self.request(self.current_url, cookies={'over18': '1'})
         entries, next_path = self._parse(response.text)
         self.current_url = self.host+next_path
         return entries

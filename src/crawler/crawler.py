@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from functools import partial
 from json import loads
 
+from requests import request
 from bs4 import BeautifulSoup
 
 REPO_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +25,9 @@ class Crawler(ABC):
             entries = self.crawl()
             result.extend(entries)
         return result
+
+    def request(self, url, method='get', **kwargs):
+        return request(method, url, **kwargs)
 
     @abstractmethod
     def crawl(self):
