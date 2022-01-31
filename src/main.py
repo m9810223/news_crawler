@@ -1,35 +1,30 @@
 from pathlib import Path
 from sys import argv
 
+from yaml import safe_load
+
 from worker import Worker
 
 
-REPO_PATH = Path(__file__).resolve().parent.parent
+DIR_PATH = Path(__file__).resolve().parent
+REPO_PATH = DIR_PATH.parent
+
+
+def yaml_load(path: Path):
+    with open(path) as f:
+        return safe_load(f.read())
 
 
 if __name__ == '__main__':
     PRODUCTION = len(argv) > 1 and argv[1] in ('-p', '--production')
-    works = {
-        'yourator': (
-            ('後端工程', 10),
-        ),
-        'ptt': (
-            ('gossiping', 200),
-            ('movie', 200),
-            ('stupidclown', 200),
-            ('stock', 200),
-        ),
-        '104': (
-            ('後端 python', 10),
-        ),
-    }
+    works = yaml_load(DIR_PATH/'works.yaml')
     public_path = REPO_PATH/'public'
     Path.mkdir(public_path, parents=True, exist_ok=True)
     with open(public_path/'README.md', 'w') as f:
         f.write('![](https://github.com/m9810223/news_crawler/actions/workflows/update.yml/badge.svg?branch=public)\n\n')
         f.write('![](https://github.com/m9810223/news_crawler/actions/workflows/update.yml/badge.svg)\n\n')
     for name, kw_page in works.items():
-        for keyword, page in kw_page:
+        for keyword, page in kw_page.items():
             if not PRODUCTION:
                 page = 1
             Worker(name, public_path, keyword, page)
