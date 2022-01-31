@@ -14,17 +14,19 @@ class Crawler(ABC):
     _my_soup = partial(BeautifulSoup, features="html.parser")
     _my_json_loads = partial(loads)
 
-    def __init__(self, host, init_path, page):
+    def __init__(self, host, init_path, amount):
         self.host = host
         self.init_path = init_path
-        self.page = page
+        self.amount = amount
 
     def __call__(self):
         result = []
-        for _ in range(self.page):
+        i = 0
+        while i < self.amount:
             entries = self.crawl()
             result.extend(entries)
-        return result
+            i += len(entries)
+        return result[:self.amount]
 
     def request(self, url, method='get', **kwargs):
         return request(method, url, **kwargs)

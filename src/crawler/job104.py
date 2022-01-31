@@ -2,8 +2,8 @@ from .crawler import Crawler
 
 
 class Job104(Crawler):
-    def __init__(self, keyword, page):
-        super().__init__('https://www.104.com.tw', f'104/{keyword}', page)
+    def __init__(self, keyword, amount):
+        super().__init__('https://www.104.com.tw', f'104/{keyword}', amount)
         self.keyword = keyword
         self.current_page = 1
 
@@ -38,14 +38,14 @@ class Job104(Crawler):
                 'link': link,
                 'company': company.text.strip(),
                 'company_link': f'https:{company["href"]}',
-                **self._job_detail(link),
+                **self._detail(link),
             })
         return entries
 
-    def _job_detail(self, url):
+    def _detail(self, url):
         content_id = url.split('/')[-1].split('?')[0]
         response = self.request(
-            url=f'https://www.104.com.tw/job/ajax/content/{content_id}',
+            url=f'{self.host}/job/ajax/content/{content_id}',
             headers={'Referer': url},
         )
         obj = self._my_json_loads(response.text)
