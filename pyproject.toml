@@ -8,6 +8,7 @@ authors = [" "]
 python = ">3.9,<4"
 bs4 = "^0.0.1"
 requests = "^2.27.1"
+PyYAML = "^6.0"
 
 [tool.poetry.dev-dependencies]
 
