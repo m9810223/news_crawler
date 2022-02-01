@@ -26,4 +26,5 @@ class PTT(Crawler):
                 'link': self.host + title['href'],
                 'push': element.select_one('.nrec').text or ' ',
             })
-        return list(reversed(entries)), next_path
+        entries.reverse()
+        return entries, next_path
