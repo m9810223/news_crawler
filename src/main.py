@@ -30,4 +30,4 @@ if __name__ == '__main__':
             with open(public_path/'README.md', 'a') as f:
                 text = f'{name} - {keyword}'
                 link = f'./{name}/{keyword}.md'.replace(' ', '%20')
-                f.write(f'''[{text}]({link})''' + 2*'\n')
+                f.write(f'[{text}]({link})' + 2*'\n')
