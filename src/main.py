@@ -21,7 +21,6 @@ if __name__ == '__main__':
     public_path = REPO_PATH/'public'
     Path.mkdir(public_path, parents=True, exist_ok=True)
     with open(public_path/'README.md', 'w') as f:
-        f.write('![](https://github.com/m9810223/news_crawler/actions/workflows/update.yml/badge.svg?branch=public)\n\n')
         f.write('![](https://github.com/m9810223/news_crawler/actions/workflows/update.yml/badge.svg)\n\n')
     for name, kw_page in works.items():
         for keyword, page in kw_page.items():
