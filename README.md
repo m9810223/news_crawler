@@ -1,3 +1,3 @@
 ![](https://github.com/m9810223/news_crawler/actions/workflows/update.yml/badge.svg)
 
-# [🔗 News](https://github.com/m9810223/news_crawler/tree/public/public)
+# [🔗 github-pages](https://m9810223.github.io/news_crawler/)

@@ -6,9 +6,6 @@ from json import loads
 from requests import request
 from bs4 import BeautifulSoup
 
-REPO_DIR = Path(__file__).resolve().parent.parent
-PUBLIC_DIR = Path(__file__).resolve().parent.parent/'public'
-
 
 class Crawler(ABC):
     _my_soup = partial(BeautifulSoup, features="html.parser")
