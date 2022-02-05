@@ -8,9 +8,12 @@ class Writer:
         self.output_path = output_path
         self.formatter = formatter
 
-    def write(self, entries):
+    def sort_key(self, entry: dict):
+        return 0
+
+    def write(self, entries: list):
         string = ''
-        for entry in entries:
+        for entry in sorted(entries, key=self.sort_key):
             string += self.formatter.format(**entry)
         Path.mkdir((self.output_path).parent, parents=True, exist_ok=True)
         with open(self.output_path, 'w') as f:

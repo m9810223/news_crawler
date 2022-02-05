@@ -16,3 +16,6 @@ class YouratorWriter(MarkdownWriter):
                 '```',
             )) + self.SEP_ENTRY
         )
+
+    def sort_key(self, entry: dict):
+        return entry.get('company', 0)

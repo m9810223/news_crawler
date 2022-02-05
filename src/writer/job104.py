@@ -16,3 +16,6 @@ class Job104Writer(MarkdownWriter):
                 '```',
             )) + self.SEP_ENTRY
         )
+
+    def sort_key(self, entry: dict):
+        return entry.get('company', 0)
