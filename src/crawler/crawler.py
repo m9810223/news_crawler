@@ -1,4 +1,3 @@
-from pathlib import Path
 from abc import ABC, abstractmethod
 from functools import partial
 from json import loads
