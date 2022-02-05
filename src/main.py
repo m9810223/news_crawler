@@ -1,7 +1,7 @@
 from pathlib import Path
 from sys import argv
 
-from yaml import safe_load
+from yaml import safe_load as yaml_load
 
 from worker import Worker
 
@@ -10,14 +10,14 @@ DIR_PATH = Path(__file__).resolve().parent
 REPO_PATH = DIR_PATH.parent
 
 
-def yaml_load(path: Path):
+def load_yaml(path: Path):
     with open(path) as f:
-        return safe_load(f.read())
+        return yaml_load(f.read())
 
 
 if __name__ == '__main__':
     PRODUCTION = len(argv) > 1 and argv[1] in ('-p', '--production')
-    works = yaml_load(DIR_PATH/'works.yaml')
+    works = load_yaml(DIR_PATH/'works.yaml')
     publish_path = REPO_PATH/'docs'
     Path.mkdir(publish_path, parents=True, exist_ok=True)
     with open(publish_path/'README.md', 'w') as f:
