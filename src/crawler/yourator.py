@@ -37,19 +37,28 @@ class Yourator(Crawler):
                 'company': job.get('company').get('brand'),
                 'company_link': self.host+job.get('company').get('path'),
                 'salary': job.get('salary'),
-                **self._detail(link),
+                **self._details(link),
             })
             self.current_count += 1
             if self.current_count == self.amount:
                 break
         return entries
 
-    def _detail(self, url):
+    def _remove_redundants(self, text: str):
+        redundants = (
+            ('\n'*3, '\n'*2),
+        )
+        for old, new in redundants:
+            while old in text:
+                text = text.replace(old, new)
+        return text
+
+    def _details(self, url):
         response = self.request(url)
         soup = self._my_soup(response.text)
         elements = soup.select('.job-description > div > div > div > section')
         return {
-            'description': elements[0].text.strip(),
-            'other_condition': elements[1].text.strip(),
+            'description': self._remove_redundants(elements[0].text.strip()),
+            'other_condition': self._remove_redundants(elements[1].text.strip()),
             'work_place': soup.select('.basic-info__address > a')[-1].text.strip(),
         }

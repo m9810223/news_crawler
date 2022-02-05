@@ -42,11 +42,20 @@ class Job104(Crawler):
                 'link': link,
                 'company': company.text.strip(),
                 'company_link': f'https:{company["href"]}',
-                **self._detail(link),
+                **self._details(link),
             })
         return entries
 
-    def _detail(self, url):
+    def _remove_redundants(self, text: str):
+        redundants = (
+            ('\n'*3, '\n'*2),
+        )
+        for old, new in redundants:
+            while old in text:
+                text = text.replace(old, new)
+        return text
+
+    def _details(self, url):
         content_id = url.split('/')[-1].split('?')[0]
         response = self.request(
             url=f'{self.host}/job/ajax/content/{content_id}',
@@ -54,8 +63,8 @@ class Job104(Crawler):
         )
         obj = self._my_json_loads(response.text)
         return {
-            'description': obj['data']['jobDetail']['jobDescription'],
+            'description': self._remove_redundants(obj['data']['jobDetail']['jobDescription']),
             'salary': obj['data']['jobDetail']['salary'],
-            'other_condition': obj['data']['condition']['other'],
+            'other_condition': self._remove_redundants(obj['data']['condition']['other']),
             'work_place': f"{obj['data']['jobDetail']['addressRegion']}({obj['data']['jobDetail']['industryArea']})",
         }
