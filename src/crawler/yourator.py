@@ -6,15 +6,19 @@ class Yourator(Crawler):
         super().__init__('https://www.yourator.co', f'jobs', amount)
         self.keyword = keyword
         self.current_count = 0
+        self.visited = set()
+        self.current_page = 1
 
     def crawl(self):
         response = self.request(
             url=f'{self.host}/api/v2/jobs',
             params=(
-                ('term[]', self.keyword),  # ('category[]', self.keyword),
+                ('term[]', self.keyword),
                 ('area[]', 'TPE'),
+                ('page', self.current_page),
             ),
         )
+        self.current_page += 1
         return self._parse(response.text)
 
     def _parse(self, data):
@@ -24,6 +28,9 @@ class Yourator(Crawler):
         for job in jobs:
             title = job.get('name')
             link = self.host+job.get('path')
+            if link in self.visited:
+                continue
+            self.visited.add(link)
             entries.append({
                 'title': title,
                 'link': link,

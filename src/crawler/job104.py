@@ -6,6 +6,7 @@ class Job104(Crawler):
         super().__init__('https://www.104.com.tw', f'104/{keyword}', amount)
         self.keyword = keyword
         self.current_page = 1
+        self.visited = set()
 
     def crawl(self):
         response = self.request(
@@ -33,6 +34,9 @@ class Job104(Crawler):
                 continue
             link = f'https:{title["href"]}'
             company = element.select_one('.b-block__left > .b-list-inline.b-clearfix > li:nth-child(2) > a')
+            if link in self.visited:
+                continue
+            self.visited.add(link)
             entries.append({
                 'title': title.text,
                 'link': link,

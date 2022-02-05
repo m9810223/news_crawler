@@ -21,6 +21,8 @@ class Crawler(ABC):
         i = 0
         while i < self.amount:
             entries = self.crawl()
+            if not entries:
+                break
             result.extend(entries)
             i += len(entries)
         return result[:self.amount]
